@@ -1,12 +1,15 @@
 # AB-Modbus-Master
-Standalone Windows application, Master for Allen Bradley, some Omron and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library (created by Kyle Hayes) and modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (created by Michele Cattafesta).
+Standalone Windows application, Master for Allen Bradley, some Omron and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library v2.2.0 (created by Kyle Hayes) and modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (created by Michele Cattafesta).
 
 Intended to be used solely as a testing tool (not fit for any production environment).
+Try to resort to READING only, unless you really need to WRITE (which could potentially be dangerous when dealing with PLCs).
 
-It is designed to use embedded unmanaged plctag.dll C library and managed LibplctagWrapper.dll C# Wrapper.
+It is designed to use embedded dll libraries: unmanaged plctag.dll and managed LibplctagWrapper.dll.
 This was done so the app can be in the form of a standalone executable file (somewhat unorthodox approach).
 
-Once run, this app is supposed to create a copy of the plctag.dll file in the application folder (because this is unmanaged library), load it in memory when needed and delete the file when the app is closed. BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
+Once run, this app is supposed to create a copy of the plctag.dll file in the application folder (because this is unmanaged library), load it in memory when needed and delete the file when the app is closed.
+
+Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
 If the plctag.dll file is still present in the application folder then open the Task Manager, force close the app and delete the file manually.
 It would be a good habit to always check the Task Manager.
 
@@ -21,6 +24,7 @@ Some AntiVirus software might detect this behavior as a Trojan, that's why you g
 - The "Get Tags" button will fetch ControlLogix tags and selecting any of the fetched tags will copy it to the clipboard.
 - You can specify the name of the Program to get tags for (the default is set to MainProgram).
 - As for AB tags, you will need to specify the Custom String Length when the "custom string" data type is selected.
+- MicroLogix PID addressing is also a part of this app
 - As for Modbus tags, you will need to specify the String Length when the "string" data type is selected.
 - Modbus addressing: CO = Coil, DI = Discrete Input, IR = Input Register, HR = Holding Register (all these set by 0, 1, 3 and 4 xxxxx addressing).
 - Modbus byte/word swapping is a bit tricky but I hope most of it functions correctly.
