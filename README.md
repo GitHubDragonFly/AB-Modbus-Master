@@ -38,9 +38,9 @@ All it takes is to:
 - Download and install Visual Studio community edition (ideally 2019).
 - Download and extract the zip file of this project.
 - Open this as an existing project in Visual Studio and, on the menu, do:
--- Build/Build Solution (or press Ctrl-Shift-B).
--- Debug/Start Debugging (or press F5) to run the app.
--- Locate created EXE file in the /bin/Debug folder and copy it over to your preferred folder or Desktop.
+ - Build/Build Solution (or press Ctrl-Shift-B).
+ - Debug/Start Debugging (or press F5) to run the app.
+- Locate created EXE file in the /bin/Debug folder and copy it over to your preferred folder or Desktop.
 
 # Licensing
 This is all licensed under Mozilla Public License 2.0 (the MIT license of the C# Wrapper is included in the Resources folder as well as its zip file).
