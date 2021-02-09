@@ -12,8 +12,10 @@ If the plctag.dll file is still present in the application folder then open the 
 
 ## Note: Some AntiVirus software might detect this behavior as a Trojan
 
+Read comments inside the Form1 for any additional information.
+
 # Licensing
-This is all licensed under Mozilla Public License 2.0 (the MIT license of the C# Wrapper is included in the Resources folder).
+This is all licensed under Mozilla Public License 2.0 (the MIT license of the C# Wrapper is included in the Resources folder as well as its zip file).
 
 # Trademarks
 Any and all trademarks, either directly on indirectly mentioned in this project, belong to their respective owners.
