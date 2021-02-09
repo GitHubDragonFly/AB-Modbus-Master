@@ -11,3 +11,9 @@ It might hang on a still active TCP connection so give it a few seconds before d
 If the plctag.dll file is still present in the application folder then open the Task Manager, force close the app and delete the file manually.
 
 ## Note: Some AntiVirus software might detect this behavior as a Trojan
+
+# Licensing
+This is all licensed under Mozilla Public License 2.0 (the MIT license of the C# Wrapper is included in the Resources folder).
+
+# Trademarks
+Any and all trademarks, either directly on indirectly mentioned in this project, belong to their respective owners.
