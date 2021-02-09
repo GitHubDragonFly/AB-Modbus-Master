@@ -12,7 +12,8 @@ It would be a good habit to always check the Task Manager.
 
 See the ApplicationEvents.vb file for code that etracts the plctag.dll library.
 
-## Important Note: Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution
+## Important Note:
+Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution
 
 # Functionality
 - Either a single or multiple values can be displayed per tag entered, either of string/char/integer/float...etc.
