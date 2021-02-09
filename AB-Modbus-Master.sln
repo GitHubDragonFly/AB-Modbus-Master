@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30330.147
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "AB-Modbus-Master", "AB-Modbus-Master\AB-Modbus-Master.vbproj", "{C5C0D6C8-FD5F-449F-915E-7722EF84891A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+		SignedRelease|Any CPU = SignedRelease|Any CPU
+		SignedRelease|x86 = SignedRelease|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.Debug|x86.ActiveCfg = Debug|x86
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.Debug|x86.Build.0 = Debug|x86
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.Release|x86.ActiveCfg = Debug|x86
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.Release|x86.Build.0 = Debug|x86
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.SignedRelease|Any CPU.ActiveCfg = Release|Any CPU
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.SignedRelease|Any CPU.Build.0 = Release|Any CPU
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.SignedRelease|x86.ActiveCfg = Debug|x86
+		{C5C0D6C8-FD5F-449F-915E-7722EF84891A}.SignedRelease|x86.Build.0 = Debug|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61110F8C-0521-49C4-8ABF-09B1531FE2F1}
+	EndGlobalSection
+EndGlobal
