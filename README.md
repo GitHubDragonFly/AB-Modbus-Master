@@ -1,5 +1,5 @@
 # AB-Modbus-Master
-Standalone Windows application, Master for Allen Bradley and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library (created by Kyle Hayes) and modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (created by Michele Cattafesta).
+Standalone Windows application, Master for Allen Bradley, some Omron and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library (created by Kyle Hayes) and modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (created by Michele Cattafesta).
 
 Intended to be used solely as a testing tool (not fit for any production environment).
 
