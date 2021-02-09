@@ -1,18 +1,18 @@
 # AB-Modbus-Master
-Standalone Windows application, Master for Allen Bradley and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library (by Kyle Hayes) and modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (by Michele Cattafesta).
+Standalone Windows application, Master for Allen Bradley and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library (created by Kyle Hayes) and modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (created by Michele Cattafesta).
 
 Intended to be used solely as a testing tool (not fit for any production environment).
 
 It is designed to use embedded unmanaged plctag.dll C library and managed LibplctagWrapper.dll C# Wrapper.
 This was done so the app can be in the form of a standalone executable file (somewhat unorthodox approach).
 
-Once run, this app is supposed to create a copy of the plctag.dll file in the application folder (because this is unmanaged library), load it in memory when needed and delete the file when the app is closed.
-It might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
+Once run, this app is supposed to create a copy of the plctag.dll file in the application folder (because this is unmanaged library), load it in memory when needed and delete the file when the app is closed. BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
 If the plctag.dll file is still present in the application folder then open the Task Manager, force close the app and delete the file manually.
 It would be a good habit to always check the Task Manager.
+
 See the ApplicationEvents.vb file for code that etracts the plctag.dll library.
 
-## Important Note: Some AntiVirus software might detect this behavior as a Trojan
+## Important Note: Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution
 
 # Functionality
 - Either a single or multiple values can be displayed per tag entered, either of string/char/integer/float...etc.
