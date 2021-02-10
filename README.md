@@ -14,7 +14,7 @@ If the plctag.dll file is still present in the application folder then open the 
 It would be a good habit to always check the Task Manager.
 Keeping and running the executable file on the Desktop allows for ease of seeing the creation/deletion of the plctag.dll file.
 
-See the ApplicationEvents.vb file for the code that etracts the plctag.dll library.
+See the ApplicationEvents.vb file for the code that extracts the plctag.dll library.
 
 ## Important Note:
 Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution
