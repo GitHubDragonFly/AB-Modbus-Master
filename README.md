@@ -31,6 +31,7 @@ Some AntiVirus software might detect this behavior as a Trojan, that's why you g
 - Modbus byte/word swapping is a bit tricky but I hope most of it functions correctly.
 - Some error handling has been built into the app but it is also relying on the libplctag library itself for additional error handling.
 - Either or both dll files can be updated via the project's Properties/Resources page, where new dll(s) are added as existing resource files to the "Files" section.
+- There is also an experimental support for 128-bit values.
 
 There might be bugs in the app. Not everything could be tested by me, since I don't have access to all the different PLCs supported by the libplctag library. See the libplctag website for all PLCs supported by the library. Read comments inside the Form1 for any additional information.
 
