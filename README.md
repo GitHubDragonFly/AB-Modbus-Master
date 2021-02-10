@@ -4,16 +4,17 @@ Standalone Windows application, Master for Allen Bradley, some Omron and Modbus 
 Intended to be used solely as a testing tool (not fit for any production environment).
 Try to resort to READING only, unless you really need to WRITE (which could potentially be dangerous when dealing with PLCs).
 
-It is designed to use embedded dll libraries: unmanaged plctag.dll and managed LibplctagWrapper.dll.
-This was done so the app can be in the form of a standalone executable file (somewhat unorthodox approach).
+It is designed to use embedded dll libraries (added to resources): unmanaged plctag.dll and managed LibplctagWrapper.dll.
+This was done so the app can be in the form of a standalone executable file, which might be considered as somewhat unorthodox approach.
 
 Once run, this app is supposed to create a copy of the plctag.dll file in the application folder (because this is unmanaged library), load it in memory when needed and delete the file when the app is closed.
 
 Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
 If the plctag.dll file is still present in the application folder then open the Task Manager, force close the app and delete the file manually.
 It would be a good habit to always check the Task Manager.
+Keeping and running the executable file on the Desktop allows for ease of seeing the creation/deletion of the plctag.dll file.
 
-See the ApplicationEvents.vb file for code that etracts the plctag.dll library.
+See the ApplicationEvents.vb file for the code that etracts the plctag.dll library.
 
 ## Important Note:
 Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution
@@ -29,6 +30,7 @@ Some AntiVirus software might detect this behavior as a Trojan, that's why you g
 - Modbus addressing: CO = Coil, DI = Discrete Input, IR = Input Register, HR = Holding Register (all these set by 0, 1, 3 and 4 xxxxx addressing).
 - Modbus byte/word swapping is a bit tricky but I hope most of it functions correctly.
 - Some error handling has been built into the app but it is also relying on the libplctag library itself for additional error handling.
+- Either or both dll files can be updated via the project's Properties/Resources page, where new dll(s) are added as existing resource files to the "Files" section.
 
 There might be bugs in the app. Not everything could be tested by me, since I don't have access to all the different PLCs supported by the libplctag library. See the libplctag website for all PLCs supported by the library. Read comments inside the Form1 for any additional information.
 
