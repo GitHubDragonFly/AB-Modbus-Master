@@ -13,11 +13,12 @@ Possible BUG: The app might hang on a still active TCP connection so give it a f
 If the plctag.dll file is still present in the application folder then open the Task Manager, force close the app and delete the file manually.
 It would be a good habit to always check the Task Manager.
 Keeping and running the executable file on the Desktop allows for ease of seeing the creation/deletion of the plctag.dll file.
+This "BUG" was randomly happening with initial x86 build but this solution is now set for AnyCPU and I haven't seen it since. 
 
 See the ApplicationEvents.vb file for the code that extracts the plctag.dll library.
 
 ## Important Note:
-Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution
+~ Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution ~
 
 # Functionality
 - Either a single or multiple values can be displayed per tag entered, either of string/char/integer/float...etc.
