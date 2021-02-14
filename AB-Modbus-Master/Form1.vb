@@ -5,7 +5,7 @@
 ' * Intended to be used solely for troubleshooting purposes.
 ' *
 ' * It is using:
-' *  - libplctag C library ( https://github.com/kyle-github/libplctag ) v2.2.0
+' *  - libplctag C library ( https://github.com/kyle-github/libplctag ) v2.1.22
 ' *    licensed under Mozilla Public License Version 2.0 ( https://www.mozilla.org/en-US/MPL/2.0/ )
 ' *  - Modified C# Wrapper by Michele Cattafesta ( https://github.com/mesta1/libplctag-csharp )
 ' *    licensed under MIT license( http://opensource.org/licenses/mit-license.php ).
