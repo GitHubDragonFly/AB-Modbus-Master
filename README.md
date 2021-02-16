@@ -13,7 +13,8 @@ Possible BUG: The app might hang on a still active TCP connection so give it a f
 If the plctag.dll file is still present in the application folder then open the Task Manager, force close the app and delete the file manually.
 It would be a good habit to always check the Task Manager.
 Keeping and running the executable file on the Desktop allows for ease of seeing the creation/deletion of the plctag.dll file.
-This "BUG" was randomly happening with the initial x86 build. This solution is now set for AnyCPU and I haven't seen it since, not to state that it will not happen again. 
+This "BUG" was randomly happening with the initial x86 build. This solution is now set for AnyCPU and I haven't seen it since, not to state that it will not happen again.
+WORKAROUND would be to move the plctag library to the project, set it to copy if newer and remove all the code for extracting/copying/deleting the library.
 
 See the ApplicationEvents.vb file for the code that extracts the plctag.dll library.
 
