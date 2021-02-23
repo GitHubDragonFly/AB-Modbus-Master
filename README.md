@@ -51,4 +51,4 @@ All it takes is to:
 This is all licensed under Mozilla Public License 2.0 (the MIT license of the C# Wrapper is included in the Resources folder as well as its zip file).
 
 # Trademarks
-Any and all trademarks, either directly on indirectly mentioned in this project, belong to their respective owners.
+Any and all trademarks, either directly or indirectly mentioned in this project, belong to their respective owners.
