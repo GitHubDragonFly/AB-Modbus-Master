@@ -1185,10 +1185,20 @@ Public Class Form1
                                     Next
                                 End If
 
+                                Dim str = ConvertStringOfIntegersToString(valUShort)
+
                                 If i = count - 1 Then
-                                    StrMessage &= ConvertStringOfIntegersToString(valUShort)
+                                    If str = "" Then
+                                        StrMessage &= "{}"
+                                    Else
+                                        StrMessage &= str
+                                    End If
                                 Else
-                                    StrMessage &= ConvertStringOfIntegersToString(valUShort) & ", "
+                                    If str = "" Then
+                                        StrMessage &= "{}" & ", "
+                                    Else
+                                        StrMessage &= str & ", "
+                                    End If
                                 End If
                         End Select
                     Else
@@ -1598,96 +1608,104 @@ Public Class Form1
             Try
                 If Not (PlcAddress.IndexOfAny("/") <> -1 OrElse DataType = "BOOL" OrElse DataType = "BOOL Array") Then
                     For i = 0 To elementCount - 1
+                        Dim value2write = ""
+
+                        If writeValues.Length = 1 Then
+                            value2write = writeValues(0)
+                        Else
+                            value2write = writeValues(i)
+                        End If
+
                         Select Case DataType
                             Case "Int8", "SINT"
                                 If cpuType = LibplctagWrapper.CpuType.MODBUS AndAlso chbSwapWords.Checked Then
-                                    Master.SetInt8Value(tag1, (i + 1) * tag1.ElementSize, Convert.ToSByte(writeValues(i)))
+                                    Master.SetInt8Value(tag1, (i + 1) * tag1.ElementSize, Convert.ToSByte(value2write))
                                 Else
-                                    Master.SetInt8Value(tag1, i * tag1.ElementSize, Convert.ToSByte(writeValues(i)))
+                                    Master.SetInt8Value(tag1, i * tag1.ElementSize, Convert.ToSByte(value2write))
                                 End If
                             Case "UInt8", "USINT"
                                 If cpuType = LibplctagWrapper.CpuType.MODBUS AndAlso chbSwapWords.Checked Then
-                                    Master.SetUint8Value(tag1, (i + 1) * tag1.ElementSize, Convert.ToByte(writeValues(i)))
+                                    Master.SetUint8Value(tag1, (i + 1) * tag1.ElementSize, Convert.ToByte(value2write))
                                 Else
-                                    Master.SetUint8Value(tag1, i * tag1.ElementSize, Convert.ToByte(writeValues(i)))
+                                    Master.SetUint8Value(tag1, i * tag1.ElementSize, Convert.ToByte(value2write))
                                 End If
                             Case "Int16", "INT"
-                                Master.SetInt16Value(tag1, i * tag1.ElementSize, Convert.ToInt16(writeValues(i)))
+                                Master.SetInt16Value(tag1, i * tag1.ElementSize, Convert.ToInt16(value2write))
                             Case "UInt16", "UINT"
-                                Master.SetUint16Value(tag1, i * tag1.ElementSize, Convert.ToUInt16(writeValues(i)))
+                                Master.SetUint16Value(tag1, i * tag1.ElementSize, Convert.ToUInt16(value2write))
                             Case "Int32", "DINT"
-                                Master.SetInt32Value(tag1, i * tag1.ElementSize, Convert.ToInt32(writeValues(i)))
+                                Master.SetInt32Value(tag1, i * tag1.ElementSize, Convert.ToInt32(value2write))
                             Case "UInt32", "UDINT"
-                                Master.SetUint32Value(tag1, i * tag1.ElementSize, Convert.ToUInt32(writeValues(i)))
+                                Master.SetUint32Value(tag1, i * tag1.ElementSize, Convert.ToUInt32(value2write))
                             Case "Float32", "REAL"
-                                Master.SetFloat32Value(tag1, i * tag1.ElementSize, Convert.ToSingle(writeValues(i)))
+                                Master.SetFloat32Value(tag1, i * tag1.ElementSize, Convert.ToSingle(value2write))
                             Case "Int64", "LINT"
-                                Master.SetInt64Value(tag1, i * tag1.ElementSize, Convert.ToInt64(writeValues(i)))
+                                Master.SetInt64Value(tag1, i * tag1.ElementSize, Convert.ToInt64(value2write))
                             Case "UInt64", "ULINT"
-                                Master.SetUint64Value(tag1, i * tag1.ElementSize, Convert.ToUInt64(writeValues(i)))
+                                Master.SetUint64Value(tag1, i * tag1.ElementSize, Convert.ToUInt64(value2write))
                             Case "Float64", "LREAL"
-                                Master.SetFloat64Value(tag1, i * tag1.ElementSize, Convert.ToDouble(writeValues(i)))
+                                Master.SetFloat64Value(tag1, i * tag1.ElementSize, Convert.ToDouble(value2write))
                             Case "Int128", "QDINT"
-                                Master.SetInt128Value(tag1, i * tag1.ElementSize, BigInteger.Parse(writeValues(i)))
+                                Master.SetInt128Value(tag1, i * tag1.ElementSize, BigInteger.Parse(value2write))
                             Case "UInt128", "QUDINT"
-                                Master.SetUint128Value(tag1, i * tag1.ElementSize, BigInteger.Parse(writeValues(i)))
+                                Master.SetUint128Value(tag1, i * tag1.ElementSize, BigInteger.Parse(value2write))
                             Case "PID"
                                 If PIDSuffix <> "" Then
                                     Select Case PIDSuffix
                                         Case "PV"
-                                            Master.SetBitValue(tag1, 12, writeValues(0))
+                                            Master.SetBitValue(tag1, 12, value2write)
                                         Case "SP"
-                                            Master.SetBitValue(tag1, 11, writeValues(0))
+                                            Master.SetBitValue(tag1, 11, value2write)
                                         Case "LL"
-                                            Master.SetBitValue(tag1, 10, writeValues(0))
+                                            Master.SetBitValue(tag1, 10, value2write)
                                         Case "UL"
-                                            Master.SetBitValue(tag1, 9, writeValues(0))
+                                            Master.SetBitValue(tag1, 9, value2write)
                                         Case "DB"
-                                            Master.SetBitValue(tag1, 8, writeValues(0))
+                                            Master.SetBitValue(tag1, 8, value2write)
                                         Case "DA"
-                                            Master.SetBitValue(tag1, 7, writeValues(0))
+                                            Master.SetBitValue(tag1, 7, value2write)
                                         Case "TF"
-                                            Master.SetBitValue(tag1, 6, writeValues(0))
+                                            Master.SetBitValue(tag1, 6, value2write)
                                         Case "SC"
-                                            Master.SetBitValue(tag1, 5, writeValues(0))
+                                            Master.SetBitValue(tag1, 5, value2write)
                                         Case "RG"
-                                            Master.SetBitValue(tag1, 4, writeValues(0))
+                                            Master.SetBitValue(tag1, 4, value2write)
                                         Case "OL"
-                                            Master.SetBitValue(tag1, 3, writeValues(0))
+                                            Master.SetBitValue(tag1, 3, value2write)
                                         Case "CM"
-                                            Master.SetBitValue(tag1, 2, writeValues(0))
+                                            Master.SetBitValue(tag1, 2, value2write)
                                         Case "AM"
-                                            Master.SetBitValue(tag1, 1, writeValues(0))
+                                            Master.SetBitValue(tag1, 1, value2write)
                                         Case "TM"
-                                            Master.SetBitValue(tag1, 0, writeValues(0))
+                                            Master.SetBitValue(tag1, 0, value2write)
                                         Case "SPS"
-                                            Master.SetInt16Value(tag1, 2 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 2 * tag1.ElementSize, value2write)
                                         Case "KC"
-                                            Master.SetInt16Value(tag1, 3 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 3 * tag1.ElementSize, value2write)
                                         Case "Ti"
-                                            Master.SetInt16Value(tag1, 4 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 4 * tag1.ElementSize, value2write)
                                         Case "TD"
-                                            Master.SetInt16Value(tag1, 5 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 5 * tag1.ElementSize, value2write)
                                         Case "MAXS"
-                                            Master.SetInt16Value(tag1, 7 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 7 * tag1.ElementSize, value2write)
                                         Case "MINS"
-                                            Master.SetInt16Value(tag1, 8 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 8 * tag1.ElementSize, value2write)
                                         Case "ZCD"
-                                            Master.SetInt16Value(tag1, 9 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 9 * tag1.ElementSize, value2write)
                                         Case "CVH"
-                                            Master.SetInt16Value(tag1, 11 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 11 * tag1.ElementSize, value2write)
                                         Case "CVL"
-                                            Master.SetInt16Value(tag1, 12 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 12 * tag1.ElementSize, value2write)
                                         Case "LUT"
-                                            Master.SetInt16Value(tag1, 13 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 13 * tag1.ElementSize, value2write)
                                         Case "SPV"
-                                            Master.SetInt16Value(tag1, 14 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 14 * tag1.ElementSize, value2write)
                                         Case "CVP"
-                                            Master.SetInt16Value(tag1, 16 * tag1.ElementSize, writeValues(0))
+                                            Master.SetInt16Value(tag1, 16 * tag1.ElementSize, value2write)
                                     End Select
                                 End If
                             Case "Custom String"
-                                Dim data = ConvertStringToStringOfUShorts(writeValues(i))
+                                Dim data = ConvertStringToStringOfUShorts(value2write)
                                 Dim valUShort(CustomStringLength + 3) As UShort
                                 Dim bytes = BitConverter.GetBytes(data.Length)
 
@@ -1699,7 +1717,7 @@ Public Class Form1
                                 Next
                             Case "String"
                                 If cpuType = LibplctagWrapper.CpuType.MODBUS Then
-                                    Dim data = ConvertStringToStringOfUShorts(writeValues(i))
+                                    Dim data = ConvertStringToStringOfUShorts(value2write)
                                     Dim valUShort(CustomStringLength - 1) As UShort
                                     data.CopyTo(valUShort, 0)
 
@@ -1709,7 +1727,7 @@ Public Class Form1
                                         Master.SetUint8Value(tag1, j + i * tag1.ElementSize, valUShort(j))
                                     Next
                                 ElseIf cpuType = LibplctagWrapper.CpuType.Micro800 Then
-                                    Dim data = ConvertStringToStringOfUShorts(writeValues(i))
+                                    Dim data = ConvertStringToStringOfUShorts(value2write)
                                     Dim valUShort(data.Length) As UShort
                                     Dim bytes = BitConverter.GetBytes(data.Length)
                                     bytes.CopyTo(valUShort, 0)
@@ -1719,7 +1737,7 @@ Public Class Form1
                                         Master.SetUint8Value(tag1, j + i * tag1.ElementSize, valUShort(j))
                                     Next
                                 ElseIf cpuType = LibplctagWrapper.CpuType.ControlLogix Then
-                                    Dim data = ConvertStringToStringOfUShorts(writeValues(i))
+                                    Dim data = ConvertStringToStringOfUShorts(value2write)
                                     Dim valUShort(data.Length + 3) As UShort
                                     Dim bytes = BitConverter.GetBytes(data.Length)
                                     bytes.CopyTo(valUShort, 0)
@@ -1730,7 +1748,7 @@ Public Class Form1
                                     Next
                                 Else
                                     Dim result As Integer
-                                    Dim quot = Math.DivRem(writeValues(i).Length, 2, result)
+                                    Dim quot = Math.DivRem(value2write.Length, 2, result)
 
                                     Dim offset = 0
 
@@ -1738,7 +1756,7 @@ Public Class Form1
                                         offset = 1
                                     End If
 
-                                    Dim data = ConvertStringToStringOfUShorts(writeValues(i))
+                                    Dim data = ConvertStringToStringOfUShorts(value2write)
 
                                     Dim valUShort(83) As UShort
 
@@ -2915,10 +2933,20 @@ Public Class Form1
                                 Next
                             End If
 
+                            Dim str = AutoReadConvertStringOfIntegersToString(valUShort)
+
                             If i = count - 1 Then
-                                AutoReadStrMessage &= AutoReadConvertStringOfIntegersToString(valUShort)
+                                If str = "" Then
+                                    AutoReadStrMessage &= "{}"
+                                Else
+                                    AutoReadStrMessage &= str
+                                End If
                             Else
-                                AutoReadStrMessage &= AutoReadConvertStringOfIntegersToString(valUShort) & ", "
+                                If str = "" Then
+                                    AutoReadStrMessage &= "{}" & ", "
+                                Else
+                                    AutoReadStrMessage &= str & ", "
+                                End If
                             End If
                     End Select
                 Else
@@ -3689,7 +3717,7 @@ Public Class Form1
                 vals(j) = vals(j).Trim
             Next
 
-            If String.IsNullOrWhiteSpace(AddressList(Index).ValuesToWrite.Text) Then
+            If String.IsNullOrWhiteSpace(AddressList(Index).ValuesToWrite.Text) AndAlso Not (stringValues(1) = "String" OrElse stringValues(1) = "Custom String") Then
                 MessageBox.Show("No values to write are provided!")
                 Return False
             Else
@@ -4227,7 +4255,7 @@ Public Class Form1
     End Sub
 
     Private Sub LabelVTW_MouseHover(sender As Object, e As EventArgs) Handles lblVTW.MouseHover
-        AllToolTip.SetToolTip(sender, "Write - The exact number of comma separated values required for writing if points count > 1." & Environment.NewLine & "Read - Received values will be displayed as Read-Only.")
+        AllToolTip.SetToolTip(sender, "Write - Either single or the exact number of comma separated values required if element count > 1." & Environment.NewLine & "Read - Received values will be displayed as Read-Only.")
     End Sub
 
     Private Sub LabelReset_MouseHover(sender As Object, e As EventArgs) Handles lblReset.MouseHover
