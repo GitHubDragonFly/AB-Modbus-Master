@@ -13,7 +13,8 @@ Possible BUG: The app might hang on a still active TCP connection so give it a f
 If the plctag.dll file is still present in the application folder then open the Task Manager, force close the app and delete the file manually.
 It would be a good habit to always check the Task Manager.
 Keeping and running the executable file on the Desktop allows for ease of seeing the creation/deletion of the plctag.dll file.
-This "BUG" was randomly happening with initial x86 build but this solution is now set for AnyCPU and I haven't seen it since. 
+This "BUG" was randomly happening with the initial x86 build. This solution is now set for AnyCPU and I haven't seen it since, not to state that it will not happen again.
+WORKAROUND would be to move the plctag library to the project, set it to copy if newer and remove all the code for extracting/copying/deleting the library.
 
 See the ApplicationEvents.vb file for the code that extracts the plctag.dll library.
 
@@ -31,7 +32,7 @@ See the ApplicationEvents.vb file for the code that extracts the plctag.dll libr
 - Modbus addressing: CO = Coil, DI = Discrete Input, IR = Input Register, HR = Holding Register (all these set by 0, 1, 3 and 4 xxxxx addressing).
 - Modbus byte/word swapping is a bit tricky but I hope most of it functions correctly.
 - Some error handling has been built into the app but it is also relying on the libplctag library itself for additional error handling.
-- Either or both dll files can be updated via the project's Properties/Resources page, where new dll(s) are added as existing resource files to the "Files" section.
+- Either or both dll files can be updated via the project's Properties/Resources page, where new dll(s) are added as existing resource files to the "Files" section. Depending on the changes made to the new versions of the plctag library, this app might lose some functionality (like MicroLogix PID addressing or some other).
 - There is also an experimental support for 128-bit values.
 
 There might be bugs in the app. Not everything could be tested by me, since I don't have access to all the different PLCs supported by the libplctag library. See the libplctag website for all PLCs supported by the library. Read comments inside the Form1 for any additional information.
