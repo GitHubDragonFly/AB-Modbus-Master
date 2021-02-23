@@ -1732,23 +1732,27 @@ Public Class Form1
                                     Dim result As Integer
                                     Dim quot = Math.DivRem(writeValues(i).Length, 2, result)
 
+                                    Dim offset = 0
+
                                     If result <> 0 Then
-                                        writeValues(i) = writeValues(i) & " "
+                                        offset = 1
                                     End If
 
                                     Dim data = ConvertStringToStringOfUShorts(writeValues(i))
-                                    Dim valUShort(data.Length + 1) As UShort
+
+                                    Dim valUShort(83) As UShort
+
                                     valUShort(0) = Convert.ToByte(BitConverter.GetBytes(data.Length)(0))
                                     valUShort(1) = Convert.ToByte(BitConverter.GetBytes(data.Length)(1))
 
-                                    ' Reverse data bytes
-                                    For z = 0 To data.Length - 1 Step 2
-                                        Dim temp As UShort = data(z)
-                                        data(z) = data(z + 1)
-                                        data(z + 1) = temp
-                                    Next
-
                                     data.CopyTo(valUShort, 2)
+
+                                    ' Reverse data bytes
+                                    For z = 2 To data.Length + offset Step 2
+                                        Dim temp As UShort = valUShort(z)
+                                        valUShort(z) = valUShort(z + 1)
+                                        valUShort(z + 1) = temp
+                                    Next
 
                                     For j = 0 To valUShort.Length - 1
                                         Master.SetUint8Value(tag1, j + i * tag1.ElementSize, valUShort(j))
