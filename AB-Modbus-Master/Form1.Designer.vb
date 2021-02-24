@@ -145,6 +145,7 @@ Partial Class Form1
         Me.chbBDOnOff = New System.Windows.Forms.CheckBox()
         Me.label1 = New System.Windows.Forms.Label()
         Me.tbProgramName = New System.Windows.Forms.TextBox()
+        Me.lblLibVersion = New System.Windows.Forms.Label()
         Me.gbAutoRead.SuspendLayout()
         Me.gbTags.SuspendLayout()
         CType(Me.PictureBox1, System.ComponentModel.ISupportInitialize).BeginInit()
@@ -1670,6 +1671,17 @@ Partial Class Form1
         Me.tbProgramName.TabIndex = 156
         Me.tbProgramName.Text = "MainProgram"
         '
+        'lblLibVersion
+        '
+        Me.lblLibVersion.AutoSize = True
+        Me.lblLibVersion.Font = New System.Drawing.Font("Microsoft Sans Serif", 9.75!, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.lblLibVersion.ForeColor = System.Drawing.Color.MidnightBlue
+        Me.lblLibVersion.Location = New System.Drawing.Point(215, 148)
+        Me.lblLibVersion.Name = "lblLibVersion"
+        Me.lblLibVersion.Size = New System.Drawing.Size(49, 16)
+        Me.lblLibVersion.TabIndex = 146
+        Me.lblLibVersion.Text = "Label2"
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(96.0!, 96.0!)
@@ -1695,6 +1707,7 @@ Partial Class Form1
         Me.Controls.Add(Me.gbTags)
         Me.Controls.Add(Me.PictureBox1)
         Me.Controls.Add(Me.gbPLC)
+        Me.Controls.Add(Me.lblLibVersion)
         Me.DoubleBuffered = True
         Me.Icon = CType(resources.GetObject("$this.Icon"), System.Drawing.Icon)
         Me.MaximizeBox = False
@@ -1838,4 +1851,5 @@ Partial Class Form1
     Friend WithEvents label1 As Label
     Friend WithEvents tbProgramName As TextBox
     Friend WithEvents cbPollInterval As ComboBox
+    Friend WithEvents lblLibVersion As Label
 End Class

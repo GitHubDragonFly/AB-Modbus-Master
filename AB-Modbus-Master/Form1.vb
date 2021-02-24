@@ -61,7 +61,7 @@ Imports System.Numerics
 
 Public Class Form1
 
-    Public pollInterval, cpuTypeIndex As Integer
+    Public libplctagIsNew, pollInterval, cpuTypeIndex As Integer
 
     Private Master As New LibplctagWrapper.Libplctag
     Private AutoReadMaster As New LibplctagWrapper.Libplctag
@@ -72,6 +72,7 @@ Public Class Form1
     Private PIDSuffix As String = ""
     Private AutoReadStrMessage As String = ""
     Private AutoReadPIDSuffix As String = ""
+    Private libraryVersion As String = ""
     Private ReadOnly AllToolTip As New ToolTip
     Private AutoReadBckgndThread As Threading.Thread
     Private ReadOnly m_Lock As New Object
@@ -119,6 +120,11 @@ Public Class Form1
     Public Sub New()
         InitializeComponent()
         SetStyle(ControlStyles.OptimizedDoubleBuffer Or ControlStyles.AllPaintingInWmPaint Or ControlStyles.UserPaint Or ControlStyles.ResizeRedraw Or ControlStyles.ContainerControl Or ControlStyles.SupportsTransparentBackColor, True)
+
+        libplctagIsNew = Master.CheckPlctagLibraryVersion(2, 2, 0)
+
+        libraryVersion = "libplctag v" & Master.GetLibraryIntAttribute(0, "version_major", 0) & "." & Master.GetLibraryIntAttribute(0, "version_minor", 0) & "." & Master.GetLibraryIntAttribute(0, "version_patch", 0)
+        lblLibVersion.Text = libraryVersion
     End Sub
 
 #End Region
@@ -508,6 +514,8 @@ Public Class Form1
 
             Select Case dataType
                 Case "Int8", "SINT", "UInt8", "USINT", "BOOL"
+                    elementSize = 1
+
                     If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                         elementSize = 2
 
@@ -522,8 +530,6 @@ Public Class Form1
                         Else
                             RealElementCount1 = Math.Ceiling(elementCount / 2)
                         End If
-                    Else
-                        elementSize = 1
                     End If
                 Case "Int16", "INT", "UInt16", "UINT"
                     elementSize = 2
@@ -540,8 +546,15 @@ Public Class Form1
                         Else
                             RealElementCount1 = elementCount
                         End If
+                    ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                        cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Plc5 OrElse
+                        cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                        byteOrder = int16byteOrder(1)
                     End If
                 Case "Int32", "DINT", "UInt32", "UDINT", "BOOLArray"
+                    elementSize = 4
+
                     If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                         elementSize = 2
 
@@ -564,11 +577,17 @@ Public Class Form1
                                 byteOrder = int32byteOrder(3)
                             End If
                         End If
+                    ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                        cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Plc5 OrElse
+                        cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                        byteOrder = int32byteOrder(3)
                     Else
                         If dataType = "BOOLArray" Then dataType = "BOOL Array"
-                        elementSize = 4
                     End If
                 Case "Float32", "REAL"
+                    elementSize = 4
+
                     If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                         elementSize = 2
 
@@ -591,10 +610,17 @@ Public Class Form1
                                 byteOrder = float32byteOrder(3)
                             End If
                         End If
-                    Else
-                        elementSize = 4
+                    ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                        cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                        byteOrder = float32byteOrder(3)
+                    ElseIf (libplctagIsNew = 0) AndAlso cpuType = LibplctagWrapper.CpuType.Plc5 Then
+
+                        byteOrder = float32byteOrder(1)
                     End If
                 Case "Int64", "LINT", "UInt64", "ULINT"
+                    elementSize = 8
+
                     If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                         elementSize = 2
 
@@ -617,10 +643,15 @@ Public Class Form1
                                 byteOrder = int64byteOrder(3)
                             End If
                         End If
-                    Else
-                        elementSize = 8
+                    ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                        cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Plc5 OrElse
+                        cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                        byteOrder = int64byteOrder(3)
                     End If
                 Case "Float64", "LREAL"
+                    elementSize = 8
+
                     If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                         elementSize = 2
 
@@ -643,8 +674,11 @@ Public Class Form1
                                 byteOrder = float64byteOrder(3)
                             End If
                         End If
-                    Else
-                        elementSize = 8
+                    ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                        cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Plc5 OrElse
+                        cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                        byteOrder = float64byteOrder(3)
                     End If
                 Case "Int128", "QINT", "UInt128", "UQINT"
                     If cpuType = LibplctagWrapper.CpuType.MODBUS Then
@@ -831,9 +865,17 @@ Public Class Form1
                 End If
             Else
                 If stringValues(0).IndexOfAny("/") <> -1 OrElse dataType = "PID" Then
-                    tag1 = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, elementSize, RealElementCount1)
+                    If (libplctagIsNew = 0) AndAlso byteOrder IsNot Nothing Then
+                        tag1 = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, elementSize, RealElementCount1, byteOrder)
+                    Else
+                        tag1 = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, elementSize, RealElementCount1)
+                    End If
                 Else
-                    tag1 = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, elementSize, elementCount)
+                    If (libplctagIsNew = 0) AndAlso byteOrder IsNot Nothing Then
+                        tag1 = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, elementSize, elementCount, byteOrder)
+                    Else
+                        tag1 = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, elementSize, elementCount)
+                    End If
                 End If
             End If
 
@@ -2192,6 +2234,8 @@ Public Class Form1
 
                     Select Case DataType
                         Case "Int8", "SINT", "UInt8", "USINT", "BOOL"
+                            AutoReadElementSize = 1
+
                             If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                                 AutoReadElementSize = 2
 
@@ -2206,8 +2250,6 @@ Public Class Form1
                                 Else
                                     RealElementCount2 = Math.Ceiling(AutoReadElementCount / 2)
                                 End If
-                            Else
-                                AutoReadElementSize = 1
                             End If
                         Case "Int16", "INT", "UInt16", "UINT"
                             AutoReadElementSize = 2
@@ -2224,8 +2266,15 @@ Public Class Form1
                                 Else
                                     RealElementCount2 = AutoReadElementCount
                                 End If
+                            ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                                cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Plc5 OrElse
+                                cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                                byteOrder = int16byteOrder(1)
                             End If
                         Case "Int32", "DINT", "UInt32", "UDINT", "BOOLArray"
+                            AutoReadElementSize = 4
+
                             If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                                 AutoReadElementSize = 2
 
@@ -2248,11 +2297,17 @@ Public Class Form1
                                         AutoReadbyteOrder = int32byteOrder(3)
                                     End If
                                 End If
+                            ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                                cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Plc5 OrElse
+                                cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                                byteOrder = int32byteOrder(3)
                             Else
                                 If DataType = "BOOLArray" Then DataType = "BOOL Array"
-                                AutoReadElementSize = 4
                             End If
                         Case "Float32", "REAL"
+                            AutoReadElementSize = 4
+
                             If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                                 AutoReadElementSize = 2
 
@@ -2275,10 +2330,17 @@ Public Class Form1
                                         AutoReadbyteOrder = float32byteOrder(3)
                                     End If
                                 End If
-                            Else
-                                AutoReadElementSize = 4
+                            ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                                cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                                byteOrder = float32byteOrder(3)
+                            ElseIf (libplctagIsNew = 0) AndAlso cpuType = LibplctagWrapper.CpuType.Plc5 Then
+
+                                byteOrder = float32byteOrder(1)
                             End If
                         Case "Int64", "LINT", "UInt64", "ULINT"
+                            AutoReadElementSize = 8
+
                             If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                                 AutoReadElementSize = 2
 
@@ -2301,10 +2363,15 @@ Public Class Form1
                                         AutoReadbyteOrder = int64byteOrder(3)
                                     End If
                                 End If
-                            Else
-                                AutoReadElementSize = 8
+                            ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                                cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Plc5 OrElse
+                                cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                                byteOrder = int64byteOrder(3)
                             End If
                         Case "Float64", "LREAL"
+                            AutoReadElementSize = 8
+
                             If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                                 AutoReadElementSize = 2
 
@@ -2327,8 +2394,11 @@ Public Class Form1
                                         AutoReadbyteOrder = float64byteOrder(3)
                                     End If
                                 End If
-                            Else
-                                AutoReadElementSize = 8
+                            ElseIf (libplctagIsNew = 0) AndAlso (cpuType = LibplctagWrapper.CpuType.MicroLogix OrElse
+                                cpuType = LibplctagWrapper.CpuType.Slc500 OrElse cpuType = LibplctagWrapper.CpuType.Plc5 OrElse
+                                cpuType = LibplctagWrapper.CpuType.Logixpccc) Then
+
+                                byteOrder = float64byteOrder(3)
                             End If
                         Case "Int128", "QINT", "UInt128", "UQINT"
                             If cpuType = LibplctagWrapper.CpuType.MODBUS Then
@@ -2505,9 +2575,17 @@ Public Class Form1
                         End If
                     Else
                         If stringValues(0).IndexOfAny("/") <> -1 OrElse DataType = "PID" Then
-                            tag2in = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, AutoReadElementSize, RealElementCount2)
+                            If (libplctagIsNew = 0) AndAlso byteOrder IsNot Nothing Then
+                                tag2in = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, AutoReadElementSize, RealElementCount2, byteOrder)
+                            Else
+                                tag2in = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, AutoReadElementSize, RealElementCount2)
+                            End If
                         Else
-                            tag2in = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, AutoReadElementSize, AutoReadElementCount)
+                            If (libplctagIsNew = 0) AndAlso byteOrder IsNot Nothing Then
+                                tag2in = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, AutoReadElementSize, AutoReadElementCount, byteOrder)
+                            Else
+                                tag2in = New LibplctagWrapper.Tag(prot, ipAddress, cpuType, address2poll, AutoReadElementSize, AutoReadElementCount)
+                            End If
                         End If
                     End If
 
