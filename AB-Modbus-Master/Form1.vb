@@ -1841,7 +1841,11 @@ Public Class Form1
                                 End If
                             End If
 
-                            Master.SetBitValue(tag1, i, boolValueToWrite)
+                            If boolValueToWrite Then
+                                Master.SetUint8Value(tag1, i, 1)
+                            Else
+                                Master.SetUint8Value(tag1, i, 0)
+                            End If
                         Next
                     ElseIf DataType = "BOOL Array" AndAlso bitIndex + elementCount < 32 Then
                         For i = 0 To elementCount - 1

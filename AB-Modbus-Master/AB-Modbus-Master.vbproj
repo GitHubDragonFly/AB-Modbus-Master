@@ -199,10 +199,10 @@
     <None Include="Resources\AB.ico" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LibplctagWrapper.dll" />
+    <None Include="Resources\plctag.dll" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\plctag.dll" />
+    <None Include="Resources\LibplctagWrapper.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
