@@ -72,7 +72,7 @@ Public Class Form1
     Private PIDSuffix As String = ""
     Private AutoReadStrMessage As String = ""
     Private AutoReadPIDSuffix As String = ""
-    Private libraryVersion As String = ""
+    Private ReadOnly libraryVersion As String = ""
     Private ReadOnly AllToolTip As New ToolTip
     Private AutoReadBckgndThread As Threading.Thread
     Private ReadOnly m_Lock As New Object
