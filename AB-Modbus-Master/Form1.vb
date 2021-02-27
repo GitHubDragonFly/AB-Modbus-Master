@@ -1841,10 +1841,14 @@ Public Class Form1
                                 End If
                             End If
 
-                            If boolValueToWrite Then
-                                Master.SetUint8Value(tag1, i, 1)
+                            If cpuType = LibplctagWrapper.CpuType.ControlLogix OrElse cpuType = LibplctagWrapper.CpuType.Micro800 Then
+                                If boolValueToWrite Then
+                                    Master.SetUint8Value(tag1, i, 1)
+                                Else
+                                    Master.SetUint8Value(tag1, i, 0)
+                                End If
                             Else
-                                Master.SetUint8Value(tag1, i, 0)
+                                Master.SetBitValue(tag1, i, boolValueToWrite)
                             End If
                         Next
                     ElseIf DataType = "BOOL Array" AndAlso bitIndex + elementCount < 32 Then
