@@ -528,7 +528,7 @@ Public Class Form1
                         If address2poll.IndexOfAny("/") <> -1 Then
                             RealElementCount1 = 1
                         Else
-                            RealElementCount1 = Math.Ceiling(elementCount / 2)
+                            RealElementCount1 = elementCount
                         End If
                     End If
                 Case "Int16", "INT", "UInt16", "UINT"
@@ -2252,7 +2252,7 @@ Public Class Form1
                                 If address2poll.IndexOfAny("/") <> -1 Then
                                     RealElementCount2 = 1
                                 Else
-                                    RealElementCount2 = Math.Ceiling(AutoReadElementCount / 2)
+                                    RealElementCount2 = AutoReadElementCount
                                 End If
                             End If
                         Case "Int16", "INT", "UInt16", "UINT"
