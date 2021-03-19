@@ -10,13 +10,9 @@ This was done so the app can be in the form of a standalone executable file, whi
 Once run, this app is supposed to create a copy of the plctag.dll file in the application folder (because this is unmanaged library), load it in memory when needed and delete the file when the app is closed.
 
 Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
-If the plctag.dll file is still present in the application folder then open the Task Manager, force close the app and delete the file manually.
-It would be a good habit to always check the Task Manager.
-Keeping and running the executable file on the Desktop allows for ease of seeing the creation/deletion of the plctag.dll file.
-This "BUG" was randomly happening with the initial x86 build. This solution is now set for AnyCPU and I haven't seen it since, not to state that it will not happen again.
-WORKAROUND would be to move the plctag library to the project, set it to copy if newer and remove all the code for extracting/copying/deleting the library.
+Always check the Task Manager to see if the app is still running, force close the app if necessary and delete the file manually.
 
-See the ApplicationEvents.vb file for the code that extracts the plctag.dll library.
+WORKAROUND would be to remove the plctag library from Resources, move it to the project folder, set it to copy if newer and remove all the code for extracting/copying/deleting the library. See the ApplicationEvents.vb file for the code that extracts the plctag.dll library.
 
 ## Important Note:
 ~ Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution ~
@@ -46,6 +42,8 @@ All it takes is to:
   - Build/Build Solution (or press Ctrl-Shift-B).
   - Debug/Start Debugging (or press F5) to run the app.
 - Locate created EXE file in the /bin/Debug folder and copy it over to your preferred folder or Desktop.
+
+If you need to run this app on x86 based Windows computer then you will need to replace the plctag library with its x86 version.
 
 # Licensing
 This is all licensed under Mozilla Public License 2.0 (the MIT license of the C# Wrapper is included in the Resources folder as well as its zip file).
