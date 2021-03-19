@@ -15,7 +15,7 @@ Always check the Task Manager to see if the app is still running, force close th
 WORKAROUND would be to remove the plctag library from Resources, move it to the project folder, set it to copy if newer and remove all the code for extracting/copying/deleting the library. See the ApplicationEvents.vb file for the code that extracts the plctag.dll library.
 
 ## Important Note:
-~ Some AntiVirus software might detect this behavior as a Trojan, that's why you get the whole solution ~
+~ Some AntiVirus software might detect this behavior of extracting the library as a Trojan, that's why you get the whole solution ~
 
 # Functionality
 - Either a single or multiple values can be displayed per tag entered, either of string/char/integer/float...etc.
