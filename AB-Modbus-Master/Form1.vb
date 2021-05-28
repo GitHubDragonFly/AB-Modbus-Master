@@ -56,6 +56,8 @@
 ' * 45006              STRING ARRAY [x] (88 bytes)
 ' *
 ' * For arrays, the bytes shown are for each element.
+' *
+' * See a few more in this conversation: https://github.com/libplctag/libplctag4android/issues/1
 
 Imports System.Numerics
 
@@ -500,7 +502,7 @@ Public Class Form1
                 End If
             Next
 
-            ' Split tag string based on semicolon delimiter (split parts = PLC Address, Data Type, Element Count, X, Y, Z)
+            ' Split tag string based on semicolon delimiter (split parts = PLC Address, Data Type, Element Count)
             Dim stringValues = AddressList(sndrIndex).PlcAddress.Text.Split(New Char() {";"c})
 
             For j = 0 To stringValues.Length - 1
@@ -680,7 +682,7 @@ Public Class Form1
 
                         byteOrder = float64byteOrder(3)
                     End If
-                Case "Int128", "QINT", "UInt128", "UQINT"
+                Case "Int128", "QDINT", "UInt128", "QUDINT"
                     If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                         elementSize = 2
 
@@ -1045,7 +1047,7 @@ Public Class Form1
                                 Else
                                     StrMessage &= Master.GetFloat64Value(tag1, i * tag1.ElementSize) & ", "
                                 End If
-                            Case "Int128", "QINT"
+                            Case "Int128", "QDINT"
                                 If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                                     Dim strBytes = New Byte(15) {}
 
@@ -1067,7 +1069,7 @@ Public Class Form1
                                         StrMessage &= Master.GetInt128Value(tag1, i * tag1.ElementSize).ToString & ", "
                                     End If
                                 End If
-                            Case "UInt128", "UQINT"
+                            Case "UInt128", "QUDINT"
                                 If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                                     Dim strBytes = New Byte(15) {}
 
@@ -2408,7 +2410,7 @@ Public Class Form1
 
                                 byteOrder = float64byteOrder(3)
                             End If
-                        Case "Int128", "QINT", "UInt128", "UQINT"
+                        Case "Int128", "QDINT", "UInt128", "QUDINT"
                             If cpuType = LibplctagWrapper.CpuType.MODBUS Then
                                 AutoReadElementSize = 2
 
@@ -2869,13 +2871,13 @@ Public Class Form1
                             Else
                                 AutoReadStrMessage &= AutoReadMaster.GetFloat64Value(tag2, i * tag2.ElementSize) & ", "
                             End If
-                        Case "Int128", "QINT"
+                        Case "Int128", "QDINT"
                             If i = count - 1 Then
                                 AutoReadStrMessage &= AutoReadMaster.GetInt128Value(tag2, i * tag2.ElementSize).ToString
                             Else
                                 AutoReadStrMessage &= AutoReadMaster.GetInt128Value(tag2, i * tag2.ElementSize).ToString & ", "
                             End If
-                        Case "UInt128", "UQINT"
+                        Case "UInt128", "QUDINT"
                             If i = count - 1 Then
                                 AutoReadStrMessage &= AutoReadMaster.GetUint128Value(tag2, i * tag2.ElementSize).ToString
                             Else
@@ -3785,7 +3787,7 @@ Public Class Form1
 
     Private Function CheckWriteValues(Index As Integer) As Boolean
         If AddressList(Index).CheckBoxWrite.Checked Then
-            'Split tag string based on semicolon delimiter (PLC Address, Data Type, Element Count, X, Y, Z)
+            'Split tag string based on semicolon delimiter (PLC Address, Data Type, Element Count)
             Dim stringValues = AddressList(Index).PlcAddress.Text.Split(New Char() {";"c})
 
             For j = 0 To stringValues.Length - 1
