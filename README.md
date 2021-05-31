@@ -45,6 +45,11 @@ All it takes is to:
 
 If you need to run this app on x86 based Windows computer then you will need to replace the plctag library with its x86 version.
 
+Notes for Mac Mono version:
+- This is slightly modified version of this project which has both libraries separated from the executable file (because Mono is a bit finicky).
+- The libplctag.dylib library file is version 2.1.22 compiled on iMac G5 PowerPC (32-bit). You can try replacing it with 64-bit Mac library available on the [libplctag releases](https://github.com/libplctag/libplctag/releases) page, which should be for Intel based cpu.
+- Running it from terminal should work fine with standard user account but if it doesn't then switch to superuser account (sudo su)
+
 # Licensing
 This is all licensed under Mozilla Public License 2.0 (the MIT license of the C# Wrapper is included in the Resources folder as well as its zip file).
 
