@@ -53,11 +53,16 @@ Namespace My
         End Function
 
         Public Sub UnloadImportedDll(ByVal DllPath As String)
-            For Each modl As System.Diagnostics.ProcessModule In System.Diagnostics.Process.GetCurrentProcess().Modules
-                If modl.FileName.Contains(DllPath) Then
-                    FreeLibrary(modl.BaseAddress)
-                End If
-            Next
+            Try
+                For Each modl As System.Diagnostics.ProcessModule In System.Diagnostics.Process.GetCurrentProcess().Modules
+                    If modl.FileName.Contains(DllPath) Then
+                        modl.Dispose()
+                        FreeLibrary(modl.BaseAddress)
+                    End If
+                Next
+            Catch ex As Exception
+                MessageBox.Show(ex.Message)
+            End Try
         End Sub
 
     End Class
