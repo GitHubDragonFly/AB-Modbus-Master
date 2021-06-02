@@ -304,12 +304,12 @@ Public Class Form1
     Private Sub TextBoxTimeout_TextChanged(sender As Object, e As EventArgs) Handles tbTimeout.TextChanged
         Dim dummy As Integer
         If Integer.TryParse(tbTimeout.Text, dummy) Then
-            If dummy < 0 Then
-                MessageBox.Show("Positive integer value required for timeout!")
+            If dummy < 1 Then
+                MessageBox.Show("Positive non-zero integer value required for timeout!")
                 tbTimeout.Text = "5000"
             End If
         Else
-            MessageBox.Show("Positive integer value required for timeout!")
+            MessageBox.Show("Positive non-zero integer value required for timeout!")
             tbTimeout.Text = "5000"
         End If
     End Sub
