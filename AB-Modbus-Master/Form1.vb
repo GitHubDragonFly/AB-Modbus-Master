@@ -895,9 +895,12 @@ Public Class Form1
     Private Function ProcessTag1(tag1 As LibplctagWrapper.Tag, cpuType As LibplctagWrapper.CpuType, sndrIndex As Integer, PlcAddress As String, DataType As String, bitIndex As Integer, BDOneZero As Boolean, BDOnOff As Boolean) As Boolean
         Master.AddTag(tag1, tbTimeout.Text)
 
-        While Master.GetStatus(tag1) = LibplctagWrapper.Libplctag.PLCTAG_STATUS_PENDING
+        ' Prevent continuous looping if the app is closed and exit the function
+        While Master IsNot Nothing AndAlso Master.GetStatus(tag1) = LibplctagWrapper.Libplctag.PLCTAG_STATUS_PENDING
             Threading.Thread.Sleep(10)
         End While
+
+        If Master Is Nothing Then Return False
 
         ' if the status is not ok, we have to handle the error
         If Master.GetStatus(tag1) <> LibplctagWrapper.Libplctag.PLCTAG_STATUS_OK Then
@@ -2677,24 +2680,29 @@ Public Class Form1
             End Try
         End While
 
-        If AutoPollAddressList.Count > 0 Then
-            For Each item In AutoPollAddressList
-                AddressList(item.Index).RadioBtn.Invoke(DirectCast(Sub() AddressList(item.Index).RadioBtn.Enabled = True, MethodInvoker))
-                AddressList(item.Index).PlcAddress.Invoke(DirectCast(Sub() AddressList(item.Index).PlcAddress.Enabled = True, MethodInvoker))
-                AddressList(item.Index).CheckBoxRead.Invoke(DirectCast(Sub() AddressList(item.Index).CheckBoxRead.Enabled = True, MethodInvoker))
-                AddressList(item.Index).CheckBoxWrite.Invoke(DirectCast(Sub() AddressList(item.Index).CheckBoxWrite.Enabled = True, MethodInvoker))
-                AddressList(item.Index).ButtonSend.Invoke(DirectCast(Sub() AddressList(item.Index).ButtonSend.Enabled = True, MethodInvoker))
-                AddressList(item.Index).ButtonSend.Invoke(DirectCast(Sub() AddressList(item.Index).ButtonSend.BackColor = Color.LightSteelBlue, MethodInvoker))
-            Next
+        Try
+            If AutoReadMaster IsNot Nothing AndAlso AutoPollAddressList.Count > 0 Then
+                For Each item In AutoPollAddressList
+                    AddressList(item.Index).RadioBtn.Invoke(DirectCast(Sub() AddressList(item.Index).RadioBtn.Enabled = True, MethodInvoker))
+                    AddressList(item.Index).PlcAddress.Invoke(DirectCast(Sub() AddressList(item.Index).PlcAddress.Enabled = True, MethodInvoker))
+                    AddressList(item.Index).CheckBoxRead.Invoke(DirectCast(Sub() AddressList(item.Index).CheckBoxRead.Enabled = True, MethodInvoker))
+                    AddressList(item.Index).CheckBoxWrite.Invoke(DirectCast(Sub() AddressList(item.Index).CheckBoxWrite.Enabled = True, MethodInvoker))
+                    AddressList(item.Index).ButtonSend.Invoke(DirectCast(Sub() AddressList(item.Index).ButtonSend.Enabled = True, MethodInvoker))
+                    AddressList(item.Index).ButtonSend.Invoke(DirectCast(Sub() AddressList(item.Index).ButtonSend.BackColor = Color.LightSteelBlue, MethodInvoker))
+                Next
 
-            AutoPollAddressList.Clear()
-        End If
+                AutoPollAddressList.Clear()
+            End If
 
-        If AutoReadMaster._tags.Count > 0 Then
-            AutoReadMaster._tags.Clear()
-        End If
+            If AutoReadMaster._tags.Count > 0 Then
+                AutoReadMaster._tags.Clear()
+            End If
 
-        lblAutoReadStatusIndicator.Invoke(DirectCast(Sub() lblAutoReadStatusIndicator.BackColor = Color.White, MethodInvoker))
+            lblAutoReadStatusIndicator.Invoke(DirectCast(Sub() lblAutoReadStatusIndicator.BackColor = Color.White, MethodInvoker))
+        Catch ex As Exception
+            ' Do nothing since the thread is ending
+        End Try
+
         AutoReadBckgndThread = Nothing
     End Sub
 
@@ -2704,9 +2712,12 @@ Public Class Form1
                 If Not AutoReadMaster._tags.ContainsKey(tag2.UniqueKey) Then
                     AutoReadMaster.AddTag(tag2, tbTimeout.Text)
 
-                    While AutoReadMaster.GetStatus(tag2) = LibplctagWrapper.Libplctag.PLCTAG_STATUS_PENDING
+                    ' Prevent continuous looping if the app is closed and exit the sub
+                    While AutoReadMaster IsNot Nothing AndAlso AutoReadMaster.GetStatus(tag2) = LibplctagWrapper.Libplctag.PLCTAG_STATUS_PENDING
                         Threading.Thread.Sleep(10)
                     End While
+
+                    If AutoReadMaster Is Nothing Then Exit Sub
 
                     ' if the status is not ok, we have to handle the error
                     If AutoReadMaster.GetStatus(tag2) <> LibplctagWrapper.Libplctag.PLCTAG_STATUS_OK Then
@@ -2723,9 +2734,12 @@ Public Class Form1
             Else
                 AutoReadMaster.AddTag(tag2, tbTimeout.Text)
 
-                While AutoReadMaster.GetStatus(tag2) = LibplctagWrapper.Libplctag.PLCTAG_STATUS_PENDING
+                ' Prevent continuous looping if the app is closed and exit the sub
+                While AutoReadMaster IsNot Nothing AndAlso AutoReadMaster.GetStatus(tag2) = LibplctagWrapper.Libplctag.PLCTAG_STATUS_PENDING
                     Threading.Thread.Sleep(10)
                 End While
+
+                If AutoReadMaster Is Nothing Then Exit Sub
 
                 ' if the status is not ok, we have to handle the error
                 If AutoReadMaster.GetStatus(tag2) <> LibplctagWrapper.Libplctag.PLCTAG_STATUS_OK Then
