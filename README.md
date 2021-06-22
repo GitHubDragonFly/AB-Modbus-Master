@@ -23,7 +23,7 @@ WORKAROUND would be to comment out all the code within the AppShutdown sub insid
 - The "Get Tags" button will fetch ControlLogix tags and selecting any of the fetched tags will copy it to the clipboard.
 - You can specify the name of the Program to get tags for (the default is set to MainProgram).
 - As for AB tags, you will need to specify the Custom String Length when the "custom string" data type is selected.
-- MicroLogix PID addressing is also a part of this app (ex. PD10:0 or PD10:0.PV), might not work with newer versions of plctag library
+- MicroLogix PID addressing is also a part of this app (ex. PD10:0 or PD10:0.PV), might not work with newer versions of the libplctag library
 - As for Modbus tags, you will need to specify the String Length when the "string" data type is selected.
 - Modbus addressing: CO = Coil, DI = Discrete Input, IR = Input Register, HR = Holding Register (all these set by 0, 1, 3 and 4 xxxxx addressing).
 - Modbus byte/word swapping is a bit tricky but I hope most of it functions correctly.
