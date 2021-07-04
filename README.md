@@ -12,7 +12,7 @@ Once run, this app is supposed to create a copy of the `plctag.dll` file in the 
 Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
 Always check the Task Manager to see if the app is still running, force close the app if necessary and delete the file manually.
 
-WORKAROUND would be to comment out all the code within the AppShutdown sub inside the ApplicationEvents.vb file. This way the created plctag.dll library will remain in the application folder. if you do ever update the plctag library to newer version then the app will overwrite the old file.
+WORKAROUND would be to comment out all the code within the `AppShutdown` sub inside the `ApplicationEvents.vb` file. This way the extracted `plctag.dll` library will remain in the application folder. if you do ever update the plctag library to newer version then the app will overwrite the old file.
 
 ## Important Note:
 ~ Some AntiVirus software might detect this behavior of extracting the library as a Trojan, that's why you get the whole solution ~
