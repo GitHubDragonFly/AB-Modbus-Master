@@ -31,6 +31,8 @@ WORKAROUND would be to comment out all the code within the AppShutdown sub insid
 - Either or both dll files can be updated via the project's Properties/Resources page, where new dll(s) are added as existing resource files to the "Files" section. Depending on the changes made to the new versions of the plctag library, this app might lose some functionality (like MicroLogix PID addressing or some other).
 - There is also an experimental support for 128-bit values.
 
+The Modbus part of this app can be tested with the [ModbusSlaveSimulation](https://github.com/GitHubDragonFly/ModbusSlaveSimulation) simulator.
+
 There might be bugs in the app. Not everything could be tested by me, since I don't have access to all the different PLCs supported by the libplctag library. See the libplctag website for all PLCs supported by the library. Read comments inside the Form1 for any additional information.
 
 # Build
