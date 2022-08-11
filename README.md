@@ -17,6 +17,10 @@ WORKAROUND would be to comment out all the code within the `AppShutdown` sub ins
 ## Important Note:
 ~ Some AntiVirus software might detect this behavior of extracting the library as a Trojan, that's why you get the whole solution ~
 
+# Screenshot
+
+![Start Page](screenshots/AB%20&%20Modbus%20Master%20(AB).png?raw=true)
+
 # Functionality
 - Either a single or multiple values can be displayed per tag entered, either of string/char/integer/float...etc.
 - The app provides automated READ while, during this operation, unused tag spots can be populated and used to write in parallel.
