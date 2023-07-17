@@ -40,8 +40,12 @@ The Modbus part of this app can be tested with the [ModbusSlaveSimulation](https
 There might be bugs in the app. Not everything could be tested by me, since I don't have access to all the different PLCs supported by the libplctag library. See the libplctag website for all PLCs supported by the library. Read comments inside the Form1 for any additional information.
 
 # Build
+
 All it takes is to:
 
+## For Windows
+
+- Either use Windows executable files from the `exe` folder or follow the instructions below to build it yourself.
 - Download and install Visual Studio community edition (ideally 2019).
 - Download and extract the zip file of this project.
 - Open this as an existing project in Visual Studio and, on the menu, do:
@@ -51,9 +55,10 @@ All it takes is to:
 
 If you need to run this app on x86 based Windows computer then you will need to replace the plctag library with its x86 version.
 
-Notes for Mac Mono version:
-- This is executable file of slightly modified version of this project, which has both libraries separated from the executable file (because Mono is a bit finicky).
-- You can create it yourself just by modifying this project.
+## For Mono
+
+- Mac Mono version is executable file of slightly modified version of this project, which has both libraries separated from the executable file (because Mono is a bit finicky).
+- You can also create it yourself just by modifying this project.
 - The `libplctag.dylib` library file is version 2.1.22, compiled on iMac G5 PowerPC (32-bit), while version 2.3.6 of the library is available in the [PythonTest_PPC](https://github.com/GitHubDragonFly/PythonTest_PPC) project
 - You can try replacing it with 64-bit Mac library available on the [libplctag releases](https://github.com/libplctag/libplctag/releases) page, which should be for Intel based cpu
 - Running it from terminal should work fine with standard user account but if it doesn't then switch to superuser account (sudo su)
