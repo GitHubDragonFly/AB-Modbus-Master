@@ -63,7 +63,7 @@ If you need to run this app on an x86 based Windows computer then you will need 
 
 - Mac Mono version is executable file of slightly modified version of this project, which has both libraries separated from the executable file (because Mono is a bit finicky).
 - You can also create it yourself just by modifying this project.
-- The `libplctag.dylib` library file is version 2.1.22, compiled on iMac G5 PowerPC (32-bit), while version 2.3.6 of the library is available in the [PythonTest_PPC](https://github.com/GitHubDragonFly/PythonTest_PPC) project
+- The `libplctag.dylib` library file is version 2.1.22, compiled on iMac G5 PowerPC (32-bit), while version 2.3.6 of the library is available in the [Python_libplctag_Mac_PPC](https://github.com/GitHubDragonFly/Python_libplctag_Mac_PPC) project
 - You can try replacing it with 64-bit Mac library available on the [libplctag releases](https://github.com/libplctag/libplctag/releases) page, which should be for Intel based cpu
 - Running it from terminal should work fine with standard user account but if it doesn't then switch to superuser account (sudo su)
 - This particular version should work fine in Windows, as it is, and also in Linux Mono (most distributions) for as long as you replace the `libplctag.dylib` library with the correct version of either `libplctag.dll` or `libplctag.so` file.
@@ -73,3 +73,6 @@ This is all licensed under Mozilla Public License 2.0 (the MIT license of the C#
 
 # Trademarks
 Any and all trademarks, either directly or indirectly mentioned in this project, belong to their respective owners.
+
+# Useful Resources
+- The [AdvancedHMI](https://www.advancedhmi.com) project offers FREE software with a bunch of different drivers available. It should be considered as a master application for multiple PLC brands, like AB or Modbus or Omron ... etc. It also has a lots of additional components available in its [forum](https://www.advancedhmi.com/forum/).
