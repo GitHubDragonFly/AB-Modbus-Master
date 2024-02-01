@@ -27,9 +27,15 @@ WORKAROUND would be to comment out all the code within the `AppShutdown` sub ins
 
 # Functionality
 - Either a single or multiple values can be displayed per tag entered, either of `string` `char` `integer` `float` ...etc.
-- The app provides automated READ while, during this operation, unused tag spots can be populated and used to WRITE in parallel.
+- The app provides automated READ while, during this operation, unused tag spots can be populated and used to WRITE in parallel
+- Here is a brief explanation of the screenshots above:
+  - Using the address of `N7:0; Int8; 8` is equivalent of saying "Read 8 consecutive Int8 values starting at address N7:0"
+  - Using `/` in the address indicates either bit or character reading:
+    - Using the address of `B3:1/0; Int16; 16` is equivalent of saying "From the address B3:1 read 16 consecutive bits of Int16 value starting at bit 0"
+    - Using the address of `hr0/7; String; 5; 20` is equivalent of saying "From holding register 0 and starting at character 7 read 5 consecutive characters of 20-character long string"
 - The `Get Tags` button will fetch ControlLogix tags and selecting any of the fetched tags will copy it to the clipboard.
 - You can specify the name of the Program to get tags for (the default is set to `MainProgram`).
+- `Boolean Display` defaults to showing boolean values as `True:False` but can also use either `1:0` or `On:Off`
 - MicroLogix PID addressing is also a part of this app (ex. `PD10:0` or `PD10:0.PV`), might not work with newer versions of the libplctag library
 - As for AB tags, you will need to specify the Custom String Length when the `custom string` data type is selected.
 - As for Modbus tags, you will need to specify the String Length when the `string` data type is selected.
