@@ -14,6 +14,8 @@ Always check the Task Manager to see if the app is still running, force close th
 
 WORKAROUND would be to comment out all the code within the `AppShutdown` sub inside the `ApplicationEvents.vb` file. This way the extracted `plctag.dll` library will remain in the application folder. If you do ever update the plctag library to newer version then the app will overwrite the old file.
 
+An easy alternative to use instead would be the [AdvancedHMI](https://www.advancedhmi.com/) software since it is highly functional and free.
+
 ## Important Note:
 ~ Some AntiVirus software might detect this behavior of extracting the library as a Trojan, that's why you get the whole solution ~
 
