@@ -16,7 +16,7 @@ This app will do on-demand connection and disconnect if there are no continuous 
 - Enabling the `AUTO READ` will try to maintain the continuous connection:
   - Use its `Interval` combobox to select the polling interval in milliseconds
   - Its `Status` indicator should only provide the current status - either GREEN or RED
-  - Use the available `Send` buttons to WRITE in parallel (enter the address first)
+  - Use the available `Send` buttons to WRITE in parallel (enter the address and the value to write first)
 
 Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
 Always check the Task Manager to see if the app is still running, force close the app if necessary and delete the file manually.
@@ -66,20 +66,21 @@ All it takes is to:
 
 ## For Windows
 
-- Either use Windows executable files from the `exe` folder or follow the instructions below to build it yourself.
-- Download and install Visual Studio community edition (ideally 2019).
-- Download and extract the zip file of this project.
-- Open this as an existing project in Visual Studio and, on the menu, do:
-  - Build/Build Solution (or press Ctrl-Shift-B).
-  - Debug/Start Debugging (or press F5) to run the app.
-- Locate created EXE file in the /bin/Debug folder and copy it over to your preferred folder or Desktop.
+- Either use Windows executable files from the `exe` folder or follow the instructions below to build it yourself:
+  - Download and install Visual Studio community edition (ideally 2019).
+  - Download and extract the zip file of this project.
+  - Open this as an existing project in Visual Studio and, on the menu, do:
+    - Build/Build Solution (or press Ctrl-Shift-B).
+    - Debug/Start Debugging (or press F5) to run the app.
+  - Locate created EXE file in the /bin/Debug folder and copy it over to your preferred folder or Desktop.
 
-If you need to run this app on an x86 based Windows computer then you will need to replace the plctag library with its x86 version.
+If you need to run this app on an `x86` based Windows computer then you will need to replace the `plctag` library with its `x86` version.
 
 ## For Mono
 
-- Mac Mono version is executable file of slightly modified version of this project, which has both libraries separated from the executable file (because Mono is a bit finicky).
-- You can also create it yourself just by modifying this project.
+- Mac Mono version is the executable file of a slightly modified version of this project:
+  - It has both libraries separated from the executable file (because Mono is a bit finicky)
+  - You can also create the executable file yourself just by modifying this project
 - The `libplctag.dylib` library file is version 2.1.22, compiled on iMac G5 PowerPC (32-bit), while version 2.3.6 of the library is available in the [Python_libplctag_Mac_PPC](https://github.com/GitHubDragonFly/Python_libplctag_Mac_PPC) project
 - You can try replacing it with 64-bit Mac library available on the [libplctag releases](https://github.com/libplctag/libplctag/releases) page, which should be for Intel based cpu
 - Running it from terminal should work fine with standard user account but if it doesn't then switch to superuser account (sudo su)
@@ -96,4 +97,6 @@ This is all licensed under Mozilla Public License 2.0 (the MIT license of the C#
 Any and all trademarks, either directly or indirectly mentioned in this project, belong to their respective owners.
 
 # Useful Resources
-- The [AdvancedHMI](https://www.advancedhmi.com) project offers FREE software with a bunch of different drivers available. It should be considered as a master application for multiple PLC brands, like AB or Modbus or Omron ... etc. It also has a lots of additional components available in its [forum](https://www.advancedhmi.com/forum/).
+- The [AdvancedHMI](https://www.advancedhmi.com) project offers FREE software with a bunch of different drivers available:
+  - It should be considered as a master application for multiple PLC brands, like AB or Modbus or Omron ... etc
+  - It also has a lots of additional components available in its [forum](https://www.advancedhmi.com/forum/).
