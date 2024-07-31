@@ -9,13 +9,19 @@ It is designed to use embedded dll libraries (added to resources):
 - managed `LibplctagWrapper.dll`
 - This was done so the app can be in the form of a standalone executable file
 
-Once run, this app is supposed to create a copy of the `plctag.dll` file in the application folder, then load it in memory when needed and delete the file when the app is closed (all this is required because this is unmanaged library).
+Once run, this app is supposed to do the following:
+- Create a copy of the `plctag.dll` file in the application folder where it resides
+- Load this file copy into the memory when needed
+- Delete this file copy when the app is closed
+- All this is required because this is unmanaged library
 
-This app will do on-demand connection and disconnect if there are no continuous requests:
+This app will do `on-demand` connection and disconnect if there are no continuous requests:
 - Using `Send` buttons ONLY will follow this `connect-disconnect` pattern
 - Enabling the `AUTO READ` will try to maintain the continuous connection:
   - Use its `Interval` combobox to select the polling interval in milliseconds
-  - Its `Status` indicator should only provide the current status - either GREEN or RED
+  - Its `Status` indicator should only provide the current status:
+    - GREEN for Success
+    - RED for Failed
   - Use the available `Send` buttons to WRITE in parallel (enter the address and the value to write first)
 
 Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
