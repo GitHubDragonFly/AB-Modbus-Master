@@ -47,7 +47,7 @@ An easy alternative to use instead would be the [AdvancedHMI](https://www.advanc
 - Either or both dll files can be updated via the project's Properties/Resources page, where new dll(s) are added as existing resource files to the `Files` section. Depending on the changes made to the new versions of the plctag library, this app might lose some functionality (like MicroLogix PID addressing or some other).
 - There is also an experimental support for 128-bit values.
 
-The Modbus part of this app can be tested with the [ModbusSlaveSimulation](https://github.com/GitHubDragonFly/ModbusSlaveSimulation) simulator.
+The Modbus part of this app can be tested with the [ModbusSlaveSimulation](https://github.com/GitHubDragonFly/ModbusSlaveSimulation) (check the video further below).
 
 There might be bugs in the app. Not everything could be tested by me, since I don't have access to all the different PLCs supported by the libplctag library. See the libplctag website for all PLCs supported by the library. Read comments inside the Form1 for any additional information.
 
@@ -75,6 +75,10 @@ If you need to run this app on an x86 based Windows computer then you will need 
 - You can try replacing it with 64-bit Mac library available on the [libplctag releases](https://github.com/libplctag/libplctag/releases) page, which should be for Intel based cpu
 - Running it from terminal should work fine with standard user account but if it doesn't then switch to superuser account (sudo su)
 - This particular version should work fine in Windows, as it is, and also in Linux Mono (most distributions) for as long as you replace the `libplctag.dylib` library with the correct version of either `libplctag.dll` or `libplctag.so` file.
+
+# Video
+
+https://github.com/user-attachments/assets/fc14f971-62e6-4472-b3e1-55d63202b8be
 
 # Licensing
 This is all licensed under Mozilla Public License 2.0 (the MIT license of the C# Wrapper is included in the Resources folder as well as its zip file).
