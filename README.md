@@ -1,20 +1,26 @@
 # AB-Modbus-Master
 Standalone Windows application - Master for Allen Bradley, some Omron and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library v2.1.22 (created by Kyle Hayes) and a modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (originally created by Michele Cattafesta).
 
-Intended to be used solely as a testing tool (not fit for any production environment).
-Try to resort to READING only, unless you really need to WRITE (which could potentially be dangerous when dealing with PLCs attached to some machines).
+Intended to be used solely as a testing tool (not fit for any production environment):
+- Try to resort to READING only, unless you really need to WRITE (which could potentially be dangerous when dealing with PLCs attached to some machines)
 
-It is designed to use embedded dll libraries (added to resources): unmanaged `plctag.dll` and managed `LibplctagWrapper.dll`.
-This was done so the app can be in the form of a standalone executable file, which might be considered as somewhat unorthodox approach.
+It is designed to use embedded dll libraries (added to resources):
+- unmanaged `plctag.dll`
+- managed `LibplctagWrapper.dll`
+- This was done so the app can be in the form of a standalone executable file
 
-Once run, this app is supposed to create a copy of the `plctag.dll` file in the application folder, load it in memory when needed and delete the file when the app is closed (all this is required because this is unmanaged library).
+Once run, this app is supposed to create a copy of the `plctag.dll` file in the application folder, then load it in memory when needed and delete the file when the app is closed (all this is required because this is unmanaged library).
+
+This app will do on-demand connection and disconnect if there are no continuous requests:
+- Using `Send` buttons will follow this `connect-disconnect` pattern
+- Enabling the `AUTO` read will try to maintain the continuous connection
 
 Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
 Always check the Task Manager to see if the app is still running, force close the app if necessary and delete the file manually.
 
 WORKAROUND would be to comment out all the code within the `AppShutdown` sub inside the `ApplicationEvents.vb` file. This way the extracted `plctag.dll` library will remain in the application folder. If you do ever update the plctag library to newer version then the app will overwrite the old file.
 
-An easy alternative to use instead would be the [AdvancedHMI](https://www.advancedhmi.com/) software since it is highly functional and free.
+An easy alternative to use instead of this app would be the [AdvancedHMI](https://www.advancedhmi.com/) software since it is highly functional and free.
 
 ## Important Note:
 ~ Some AntiVirus software might detect this behavior of extracting the library as a Trojan, that's why you get the whole solution ~
