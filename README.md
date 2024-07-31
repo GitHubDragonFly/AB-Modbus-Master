@@ -13,7 +13,8 @@ Once run, this app is supposed to create a copy of the `plctag.dll` file in the 
 
 This app will do on-demand connection and disconnect if there are no continuous requests:
 - Using `Send` buttons will follow this `connect-disconnect` pattern
-- Enabling the `AUTO` read will try to maintain the continuous connection
+- Enabling the `AUTO READ` will try to maintain the continuous connection:
+  - Its Status indicator should only provide the current status (either GREEN or RED)
 
 Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
 Always check the Task Manager to see if the app is still running, force close the app if necessary and delete the file manually.
