@@ -22,7 +22,9 @@ This app will do `on-demand` connection and disconnect if there are no continuou
   - Its `Status` indicator should only provide the current status:
     - GREEN for Success
     - RED for Failed
-  - Use the available `Send` buttons to WRITE in parallel (enter the address and the value to write first)
+  - It will disable all the address fileds with the `Read` box checked so it can poll them continuously
+  - Use the remaining address fields to manually `Read` or `Write` in parallel by clicking the `Send` button:
+    - Enter the address first and if the `Write` option is selected then also enter the value to write
 
 Possible BUG: The app might hang on a still active TCP connection so give it a few seconds before deciding to close the app.
 Always check the Task Manager to see if the app is still running, force close the app if necessary and delete the file manually.
