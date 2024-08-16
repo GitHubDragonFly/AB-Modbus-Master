@@ -1,7 +1,12 @@
 # AB-Modbus-Master
 Standalone Windows application - Master for Allen Bradley, some Omron and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library v2.1.22 (created by Kyle Hayes) and a modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (originally created by Michele Cattafesta).
 
-Intended to be used solely as a testing tool (not fit for any production environment):
+If a firewall is enabled then it might prompt you to allow this app to communicate on the network:
+- Normally it should be allowed to communicate on the private network otherwise it might not work properly
+  - Do not allow public access unless you know what you are doing
+- Once the testing is done then remember to remove this app from the firewall's list of allowed apps
+
+This app is intended to be used solely as a testing tool (not fit for any production environment):
 - Try to resort to READING only, unless you really need to WRITE (which could potentially be dangerous when dealing with PLCs attached to some machines)
 
 It is designed to use embedded dll libraries (added to resources):
