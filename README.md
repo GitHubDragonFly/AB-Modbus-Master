@@ -1,3 +1,8 @@
+# Reality Check
+Just for those of you who might be concerned about the Climate Change, here are couple of sobering insights:
+- Neil deGrasse Tyson's perspective on climate change: [YouTube Video](https://www.youtube.com/watch?v=tRA2SfSk2Tc)
+- My perspective, with statements from two AI entities: [Climate Change](https://githubdragonfly.github.io/viewers/templates/Climate%20Change.txt)
+
 # AB-Modbus-Master
 Standalone Windows application - Master for Allen Bradley, some Omron and Modbus PLCs, using [libplctag](https://github.com/libplctag/libplctag) library v2.1.22 (created by Kyle Hayes) and a modified [C# Wrapper](https://github.com/mesta1/libplctag-csharp) (originally created by Michele Cattafesta).
 
